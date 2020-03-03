@@ -1,0 +1,124 @@
+\chapter{Resultados e Discussão}
+\label{resultados_discussao}
+
+As simulações realizadas neste trabalho usufruíram da base de dados de detecção de intrusão CICIDS 2017, descrita com mais detalhes na Seção \ref{Subsec:cicids2017}, na página \pageref{Subsec:cicids2017}. Trata-se de uma base bastante recente quando comparada a bases amplamente utilizadas em trabalhos da literatura, as quais são compostas por eventos capturados há mais de vinte (20) anos. Embora ainda haja menor gama de trabalhos que avaliem seus modelos com a base CICIDS 2017, eventualmente dificultando análises comparativas, o fato de ser um conjunto de dados mais moderno propicia benefícios em termos da relevância e representatividade da base, dado que os ataques simulados para a construção da mesma são atuais e condizem com o que ocorre no cenário real.
+
+Embora seja uma tarefa comumente abordada com detalhes mediante aplicação de diferentes técnicas, neste trabalho nenhum algoritmo de seleção de atributos foi desempenhado durante o pre-processamento da base de dados a ser considerada. Entretanto, um subconjunto de \textit{features} julgadas mais relevantes foi definido com base no trabalho desenvolvido por \citeasnoun{sharafaldin2018}.
+
+Para determinar os melhores conjuntos de atributos para classificar cada um das classes de ataque, os autores do trabalho mencionado utilizaram-se da classe \textit{RandomForestRegressor}, disponível na biblioteca ``Scikit-Learn``. Com isso, foi possível calcular pesos de relevância e elencar os atributos considerados mais importantes para a tarefa de classificação dos fluxos de rede. Aproveitando-se os resultados experimentais publicados pelos autores supracitados, para fins deste trabalho, foram criados subconjuntos da base de dados a serem usados no treinamento das redes neurais.
+
+
+
+Os \textit{folds} gerados são persistidos em arquivos para que, nas fases seguintes do processo de KDD, todos os modelos utilizem exatamente os mesmos dados, garantindo uma comparação mais confiáveis entre si.
+
+As funções de ativação empregadas na construção dos modelos propostos foram ReLU nas camadas ocultas e \textit{softmax} na camada de saída. A função ReLU possui característica linear quando ativada, o que a torna simples e, consequentemente, mais fácil de ser otimizada durante o processo de treinamento. Além disso, quando comparada com funções sigmoidais, como logística ou \textit{tanh} (abordadas na Seção \ref{subsec:funcoes-ativacao}, página \pageref{subsec:funcoes-ativacao}), apresenta melhor performance e capacidade de generalização em problemas de \textit{Deep Learning} \cite{nwankpa2018}.
+
+Na camada de saída foi empregada a função \textit{softmax} (também abordada na Seção \ref{subsec:funcoes-ativacao}, página \pageref{subsec:funcoes-ativacao}). Embora na literatura existam diversos trabalhos que empregam a função sigmoide na camada de saída para classificação binária, optou-se pela utilização da \textit{softmax} pelo fato da mesma ser considerada uma generalização da função logística sigmoidal, fazendo com que as mesmas sejam equivalentes \cite{nwankpa2018}. Desse modo, o modelo proposto está apto a operar tanto para classificação binária, quanto para classificação multi-classe, viabilizando trabalhos futuros para fins de comparação.
+
+\begin{table}[htb]
+    \centering
+    \begin{tabular}{c|c|c|cc|cc|cc}
+        \hline
+        \# \textbf{C.O} & \textbf{Medida} & \textbf{Acurácia} & \multicolumn{2}{c|}{ \textbf{Precisão} } & \multicolumn{2}{c|}{ \textbf{Recall} } & \multicolumn{2}{c}{ \textbf{F1-Score} } \\
+        \hline
+        & & & Ataque & Normal & Ataque & Normal & Ataque & Normal \\
+        \hline
+        \multirow{2}{*}{ \textbf{1} } & $ \overline{\rm x} $ & 0.945 & 0.926 & 0.975 & 0.977 & 0.912 & 0.949 & 0.939 \\
+        & $\sigma$ & 0.058 & 0.086 & 0.008 & 0.008 & 0.117 & 0.048 & 0.071 \\
+        \hline
+        \multirow{2}{*}{ \textbf{2} } & $ \overline{\rm x} $ & 0.945 & 0.926 & 0.976 & 0.978 & 0.912 & 0.949 & 0.939 \\
+        & $\sigma$ & 0.059 & 0.087 & 0.005 & 0.004 & 0.119 & 0.050 & 0.073 \\
+        \hline
+        \multirow{2}{*}{ \textbf{3} } & $ \overline{\rm x} $ & 0.953 & 0.939 & 0.980 & 0.980 & 0.926 & 0.957 & 0.948 \\
+        & $\sigma$ & 0.055 & 0.084 & 0.016 & 0.018 & 0.114 & 0.046 & 0.069 \\
+        \hline
+        \multirow{2}{*}{ \textbf{4} } & $ \overline{\rm x} $ & 0.939 & 0.910 & 0.984 & 0.986 & 0.892 & 0.944 & 0.932 \\
+        & $\sigma$ & 0.059 & 0.087 & 0.010 & 0.007 & 0.117 & 0.050 & 0.072 \\
+        \hline
+        \multirow{2}{*}{ \textbf{5} } & $ \overline{\rm x} $ & 0.574 & 0.598 & 0.671 & 0.636 & 0.512 & 0.486 & 0.482 \\
+        & $\sigma$ & 0.072 & 0.278 & 0.326 & 0.458 & 0.369 & 0.338 & 0.209 \\
+        \hline
+    \end{tabular} 
+    \caption{binary 23f oversampled}
+\end{table}
+
+\begin{table}[htb]
+    \centering
+    \begin{tabular}{c|c|c|cc|cc|cc}
+        \hline
+        \# \textbf{C.O} & \textbf{Medida} & \textbf{Acurácia} & \multicolumn{2}{c|}{ \textbf{Precisão} } & \multicolumn{2}{c|}{ \textbf{Recall} } & \multicolumn{2}{c}{ \textbf{F1-Score} } \\
+        \hline
+        & & & Ataque & Normal & Ataque & Normal & Ataque & Normal \\
+        \hline
+        \multirow{2}{*}{ \textbf{1} } & $ \overline{\rm x} $ & 0.935 & 0.932 & 0.941 & 0.939 & 0.931 & 0.935 & 0.935 \\
+        & $\sigma$ & 0.020 & 0.014 & 0.046 & 0.052 & 0.018 & 0.022 & 0.018 \\
+        \hline
+        \multirow{2}{*}{ \textbf{2} } & $ \overline{\rm x} $ & 0.940 & 0.931 & 0.951 & 0.951 & 0.929 & 0.940 & 0.940 \\
+        & $\sigma$ & 0.021 & 0.008 & 0.037 & 0.040 & 0.008 & 0.022 & 0.019 \\
+        \hline
+        \multirow{2}{*}{ \textbf{3} } & $ \overline{\rm x} $ & 0.951 & 0.926 & 0.980 & 0.981 & 0.921 & 0.952 & 0.949 \\
+        & $\sigma$ & 0.004 & 0.009 & 0.007 & 0.006 & 0.011 & 0.004 & 0.005 \\
+        \hline
+        \multirow{2}{*}{ \textbf{4} } & $ \overline{\rm x} $ & 0.916 & 0.883 & 0.967 & 0.969 & 0.864 & 0.922 & 0.908 \\
+        & $\sigma$ & 0.052 & 0.070 & 0.035 & 0.038 & 0.108 & 0.042 & 0.069 \\
+        \hline
+        \multirow{2}{*}{ \textbf{5} } & $ \overline{\rm x} $ & 0.743 & 0.709 & 0.960 & 0.976 & 0.510 & 0.808 & 0.585 \\
+        & $\sigma$ & 0.176 & 0.178 & 0.021 & 0.023 & 0.373 & 0.112 & 0.349 \\
+        \hline
+    \end{tabular} 
+    \caption{binary 23f undersampled}
+\end{table}
+
+\begin{table}[htb]
+    \centering
+    \begin{tabular}{c|c|c|cc|cc|cc}
+        \hline
+        \# \textbf{C.O} & \textbf{Medida} & \textbf{Acurácia} & \multicolumn{2}{c|}{ \textbf{Precisão} } & \multicolumn{2}{c|}{ \textbf{Recall} } & \multicolumn{2}{c}{ \textbf{F1-Score} } \\
+        \hline
+        & & & Ataque & Normal & Ataque & Normal & Ataque & Normal \\
+        \hline
+        \multirow{2}{*}{ \textbf{1} } & $ \overline{\rm x} $ & 0.965 & 0.952 & 0.989 & 0.989 & 0.940 & 0.968 & 0.960 \\
+        & $\sigma$ & 0.058 & 0.087 & 0.004 & 0.004 & 0.117 & 0.049 & 0.071 \\
+        \hline
+        \multirow{2}{*}{ \textbf{2} } & $ \overline{\rm x} $ & 0.965 & 0.952 & 0.989 & 0.989 & 0.940 & 0.968 & 0.960 \\
+        & $\sigma$ & 0.059 & 0.087 & 0.004 & 0.003 & 0.118 & 0.050 & 0.072 \\
+        \hline
+        \multirow{2}{*}{ \textbf{3} } & $ \overline{\rm x} $ & 0.966 & 0.952 & 0.992 & 0.992 & 0.940 & 0.970 & 0.961 \\
+        & $\sigma$ & 0.059 & 0.088 & 0.004 & 0.004 & 0.120 & 0.050 & 0.072 \\
+        \hline
+        \multirow{2}{*}{ \textbf{4} } & $ \overline{\rm x} $ & 0.851 & 0.790 & 0.987 & 0.991 & 0.710 & 0.875 & 0.812 \\
+        & $\sigma$ & 0.097 & 0.118 & 0.008 & 0.005 & 0.196 & 0.073 & 0.143 \\
+        \hline
+        \multirow{2}{*}{ \textbf{5} } & $ \overline{\rm x} $ & 0.581 & 0.463 & 0.522 & 0.740 & 0.422 & 0.561 & 0.394 \\
+        & $\sigma$ & 0.123 & 0.261 & 0.401 & 0.412 & 0.411 & 0.306 & 0.334 \\
+        \hline
+    \end{tabular}
+    \caption{binary total oversampled}
+\end{table}
+
+\begin{table}[htb]
+    \centering
+    \begin{tabular}{c|c|c|cc|cc|cc}
+        \hline
+        \# \textbf{C.O} & \textbf{Medida} & \textbf{Acurácia} & \multicolumn{2}{c|}{ \textbf{Precisão} } & \multicolumn{2}{c|}{ \textbf{Recall} } & \multicolumn{2}{c}{ \textbf{F1-Score} } \\
+        \hline
+        & & & Ataque & Normal & Ataque & Normal & Ataque & Normal \\
+        \hline
+        \multirow{2}{*}{ \textbf{1} } & $ \overline{\rm x} $ & 0.970 & 0.960 & 0.981 & 0.982 & 0.959 & 0.971 & 0.970 \\
+        & $\sigma$ & 0.005 & 0.010 & 0.010 & 0.010 & 0.011 & 0.005 & 0.006 \\
+        \hline
+        \multirow{2}{*}{ \textbf{2} } & $ \overline{\rm x} $ & 0.972 & 0.962 & 0.983 & 0.983 & 0.961 & 0.972 & 0.972 \\
+        & $\sigma$ & 0.006 & 0.008 & 0.013 & 0.013 & 0.008 & 0.006 & 0.006 \\
+        \hline
+        \multirow{2}{*}{ \textbf{3} } & $ \overline{\rm x} $ & 0.965 & 0.946 & 0.985 & 0.986 & 0.944 & 0.965 & 0.964 \\
+        & $\sigma$ & 0.006 & 0.012 & 0.013 & 0.013 & 0.014 & 0.006 & 0.007 \\
+        \hline
+        \multirow{2}{*}{ \textbf{4} } & $ \overline{\rm x} $ & 0.964 & 0.944 & 0.985 & 0.986 & 0.942 & 0.965 & 0.963 \\
+        & $\sigma$ & 0.005 & 0.008 & 0.009 & 0.009 & 0.008 & 0.005 & 0.005 \\
+        \hline
+        \multirow{2}{*}{ \textbf{5} } & $ \overline{\rm x} $ & 0.772 & 0.646 & 0.793 & 0.794 & 0.751 & 0.703 & 0.729 \\
+        & $\sigma$ & 0.215 & 0.378 & 0.345 & 0.418 & 0.351 & 0.386 & 0.313 \\
+        \hline
+    \end{tabular} 
+    \caption{binary total undersampled}
+\end{table}

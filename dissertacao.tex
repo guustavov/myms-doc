@@ -1,0 +1,200 @@
+%% https://towardsdatascience.com/handling-imbalanced-datasets-in-machine-learning-7a0e84220f28
+
+%% https://www.researchgate.net/profile/Kahraman_Kostas/publication/328512658_Anomaly_Detection_in_Networks_Using_Machine_Learning/links/5bd1d1bf458515343d58eddc/Anomaly-Detection-in-Networks-Using-Machine-Learning.pdf
+
+%% http://www.diva-portal.org/smash/get/diva2:1255686/FULLTEXT02.pdf
+
+%% https://ir.lib.uwo.ca/cgi/viewcontent.cgi?article=7635&context=etd
+
+%% http://www.jatit.org/volumes/Vol97No17/4Vol97No17.pdf
+
+%% https://repositorio-aberto.up.pt/bitstream/10216/122764/4/357986.2.pdf
+
+%% http://www.indjst.org/index.php/indjst/article/viewFile/139802/99229
+
+%% https://www.mdpi.com/2076-3417/9/20/4396/pdf
+
+%%
+%% Modelo de Dissertação de Mestrado do PGEEC atualizado
+%% conforme resolução do PGEEC de 08 de Março de 2019.
+%%
+%% Utiliza a classe pgeec.cls, versão 4.2 ou superior, atualizada conforme
+%% as normas da resolução PGEEC de 08 Março de 2019.
+%%
+%% Abaixo seguem comentários das versões anteiores (histórico).
+%%
+%% Romeu Reginatto, junho de 2019.
+%%-----------------------------------------------------------
+%% Modelo de Dissertação de Mestrado do PGEEC atualizado
+%% conforme resolução do PGEEC de 08 de Março de 2019.
+%%
+%% Utiliza a classe pgeec.cls, versão 4.2, atualizada conforme
+%% as normas da resolução PGEEC de 08 Março de 2019.
+%%
+%% Abaixo seguem comentários das versões anteiores (histórico).
+%%
+%% Romeu Reginatto, março de 2019.
+%% -------------------------------------------------------
+%% Modelo de dissertação do PGEEC atualizado em set/2016.
+%% Utiliza a classe pgeec.cls, versão atualizada da 
+%% classe pgesde.cls de 25 de agosto de 2011.
+%%
+%% São mantidos todos os comentários do histórico do modelo.
+%%
+%% Romeu Reginatto, setembro de 2016;
+%% -----------------------------------------------------
+%%
+%% Arquivo modelo para elaboração de dissetações de
+%% mestrado do PGESDE. Este modelo segue as resoluções
+%% internas do PGESDE que definem as normas técnicas
+%% para a apresentação de dissertações de mestrado.
+%% 
+%% Este modelo foi elaborado por meio de alterações
+%% e adequações feitas sobre o modelo disponibilizado
+%% na internet por Eleri Cardozo, da Faculdade de
+%% Engenharia Elétrica da UNICAMP. Abaixo são mantidos
+%% os comentários do modelo original.
+%% 
+%% Para elaboração deste modelo foi também utilizada
+%% a classe sbatex.cls da SBA -- Sociedade Brasileira
+%% de Automática, elaborado por Mauricio C. de Oliveira, 
+%% mcdeoliveira@ieee.org, 18/12/2000
+%%
+%% Romeu Reginatto, 25 de agosto de 2011
+%% ----------------------------------------------------
+%%
+%% Arquivo principal para teses de mestrado e doutorado
+%% Este modelo de tese foi baseado na tese de doutorado
+%% de Luis Fernando Faina (Dez. 2000) e na tese de
+%% mestrado de José Cândido Silveira Santos Filho
+%% (Agosto de 2003)
+%%
+%% NOTA: A PUBLICAÇÃO DESTE MODELO VISA APENAS
+%% ORIENTAR OS PÓS-GRADUANDOS NA PREPARAÇÃO DE 
+%% SUAS TESES. A COMISSÃO DE PÓS-GRADUAÇÃO DA
+%% FEEC NÃO PROVÊ ASSISTÊNCIA NO USO DAS
+%% FERRAMENTAS NECESSÁRIAS AO USO DESTE MODELO
+%% (LATEX, XFIG, ETC.)
+%%
+%% Eleri Cardozo, Agosto de 2003.
+%%
+
+\documentclass[final]{pgeec}
+%
+% rascunho - imprime capa, sumário e elementos textuais
+% banca - gera versão para impressão para a banca
+% final - gera versão final impressa 
+% digital - gera versão final para publicação digital
+%
+% Na opção "banca" somente a ficha catalográfica não é impressa. Todos os demais 
+% elementos são necessários (afora os que são opcionais e não serão incluídos na 
+% versão final).
+%
+% Para produzir a versão pdf a ser enviada à biblioteca para produzir a ficha catalográfica, utilizar a opção "final".
+%
+% A versão final é apresentada em 2 formatos: impressa e digital. Ambas devem conter
+% a ficha catalográfica e a folha de aprovação assinada.
+% - Para a versão impressa (usar opção "final"):
+%        1. A folha de aprovação deve ser original. Substituir a folha de aprovação impressa na opção "final" pela folha de aprovação assinada, em cada volume.
+%        2. A ficha catalográfica deve ser idêntica à enviada pela biblioteca. Sugere-se efetuar cópia diretamente sobre a folha em branco impressa na opção "final".
+%
+% - Para a versão digital ("usar opção "digital"):
+%        1. A folha de aprovação assinada deve ser escaneada. Recortar do arquivo escaneado aproximadamente o tamanho da margem da folha. Produzir um arquivo .eps que será incluído automaticamente pelo latex na opção "digital".
+%        2. A ficha catalográfica deve ser escaneada da versão original impressa ou então convertida do formato pdf para eps. No caso de ser escaneada, recortar aproximadamente o tamanho exato do texto da ficha e converter para o formato eps. O latex fará a importação automática do arquivo eps informado, na opção "digital".
+%
+
+%% Comandos para facilitar a edição 
+\newcommand{\cpp}{\texttt{C$++$}}
+\ifdefined\latex \renewcommand{\latex}{\LaTeX} \else \newcommand{\latex}{\LaTeX} \fi
+
+%% Comandos para utilização de uma nota de rodapé mais de uma vez na mesma página sem duplicação
+\makeatletter
+\newcommand\footnoteref[1]{\protected@xdef\@thefnmark{\ref{#1}}\@footnotemark}
+\makeatother
+
+
+\begin{document}
+
+%% Identificação do Trabalho
+%%
+\autor{Gustavo dos Santos Vieira}
+\titulo{Construção de Modelos de Detecção de Intrusão baseados em Redes Neurais Artificiais utilizando o \textit{dataset} CICIDS2017}
+\ano{2020}
+
+
+%% Identificacao do orientador e orientador(es) (se houverem)
+%
+\orientador{Renato Bobsin Machado}
+\coorientador{Nome do Coorientador 1}
+
+
+%% Identificacao da Banca
+%
+\datadefesa{12/03/2020} 
+\bancaorientador{Prof. Dr.}{\NomeOrientador}{Universidade Estadual do Oeste do Paraná}{UNIOESTE}
+\bancacoorientador{Prof. Dr.}{Rômulo César Silva}{Universidade Estadual do Oeste do Paraná}{UNIOESTE}
+\banca{Prof. Dr.}{Thiago França Naves}{Universidade Tecnológica Federal do Paraná}{UTFPR}
+\banca{Prof. Dr.}{Romeu Reginatto}{Universidade Estadual do Oeste do Paraná}{UNIOESTE}
+
+
+%% Definicao de Elementos Pre-Textuais
+%
+\ArquivoFicha{PreTextuais/Ficha} % Necessário para a opção "digital"
+\ArquivoResumo{PreTextuais/resumo}
+\ArquivoAgradecimentos{PreTextuais/agradecimentos}
+\dedicatoria{Dedico este trabalho a todos. \\ E a tudo.} % Opcional
+%\epigrafe{``Afirmo que a capacidade é inata, \\   mas o conhecimento adquirido.'' \\ John Locke } % Opcional
+
+% Folha de Aprovação Assinada Escaneada para a Versão Digital da Dissertação
+% Converter para o eps (ou pdf se usar pdflatex)
+%\ArquivoFolhaAprovacao{PreTextuais/FolhaAprovacaoAssinada}  % necessário para a opção "digital"
+
+%% Listas Opcionais
+% Descomentar para incluir na dissertação
+\IncluiListaFiguras % Inclui Lista de Figuras
+\IncluiListaTabelas % Inclui Lista de Tabelas
+\IncluiListaSimbolos % Insere Lista de Símbolos construída pelo comando \simbolo
+%\ArquivoSimbolos{PreTextuais/simbolos} % Insere Lista de Símbolos do arquivo indicado
+\IncluiListaSiglas % Insere Lista de Siglas construída pelos comandos \sigla e \abreviatura
+%\ArquivoSiglas{PreTextuais/siglas} % Insere Lista de Siglas do arquivo indicado
+
+
+\frontmatter
+\MakePreTextuais  
+
+
+%% Elementos Textuais
+%
+\mainmatter
+\input{Cap1/introducao} % Incluir aqui os capítulos da dissertação
+\input{Cap2/cap2}
+\input{Cap3/cap3}
+\input{Cap4/cap4}
+\input{Cap5/cap5}
+\input{CapN/conclusao}
+
+
+%% Referências bibliográficas (geradas automaticamente)
+\bibliographypgeec{dissertacao}
+
+
+%% Inclusão de Apêndices, caso existam
+\appendix
+\input{ApendiceA/apA}
+
+
+%% Declaração de símbolos, siglas e abreviaturas 
+% Pode ser feito em arquivo a parte e incluido com \input
+\sigla{DFIG}{Gerador de Indução de Dupla Alimentação}
+\sigla{EPS}{{\em Encapsulated Post Script}}
+\sigla{PGEEC}{Programa de Pós-Graduação em Engenharia Elétrica e Computação, UNIOESTE, Campus de Foz do Iguaçu (para ocupar 2 linhas)}
+\sigla{UNIOESTE}{Universidade Estadual do Oeste do Paraná}
+
+
+\simbolo{$L$}{Período}
+\simbolo{$M$}{Número de ramos de diversidade}
+\simbolo{$r_i$}{Envoltória do $i$-ésimo ramo}
+\simbolo{$v_c$}{Tensão sobre o capacitor colocado após o retificador para reduzir o {\em ripple} - texto grande para ocupar duas linhas}
+
+\end{document}
+
